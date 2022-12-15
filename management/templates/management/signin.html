@@ -94,15 +94,20 @@
 						<p class="mb-4">Please sign-in to your account and start the adventure</p>
 
 						<form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+							
 							<div class="mb-3">
-								<label for="email" class="form-label">Email or StudentID</label>
-								<input type="text" class="form-control" id="email" name="email-id"
-									placeholder="Enter your email or studentID" autofocus />
+								<label for="studentID" class="form-label">StudentID</label>
+								<div class="input-group input-group-merge">
+									<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
+									<input type="text" class="form-control" name="studentID" id="StudentID" placeholder="studentID"
+									placeholder="Enter your studentID" autofocus required/>
+								</div>
 							</div>
+							
 							<div class="mb-3 form-password-toggle">
 								<div class="d-flex justify-content-between">
 									<label class="form-label" for="password">Password</label>
-									<a href="auth-forgot-password-basic.html">
+									<a href="{% url 'reset-page' %}">
 										<small>Forgot Password?</small>
 									</a>
 								</div>

@@ -13,3 +13,7 @@ class Signup(View):
 class Signin(View):
 	def get(self, request):
 		return render(request, 'management/signin.html')
+
+class ForgotPassword(View):
+	def get(self, request):
+		return render(request, 'management/reset.html')

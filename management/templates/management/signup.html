@@ -89,15 +89,53 @@
 
 						<form id="formAuthentication" class="mb-3" action="index.html" method="POST">
 							<div class="mb-3">
-								<label for="fullname" class="form-label">Full Name</label>
-								<input type="text" class="form-control" id="fullname" name="fullname"
-									placeholder="Enter your fullname" autofocus />
+								<label for="name" class="form-label">Name</label>
+								<div class="input-group input-group-merge">
+									<span class="input-group-text"><i class="bx bx-user"></i></span>
+									<input type="text" class="form-control" name="name" id="name"
+									placeholder="Enter your name" autofocus required/>
+								</div>
 							</div>
+							
+							<div class="mb-3">
+								<label for="surname" class="form-label">Surname</label>
+								<div class="input-group input-group-merge">
+									<span class="input-group-text"><i class="bx bx-user"></i></span>
+									<input type="text" class="form-control" name="surname" id="surname"
+									placeholder="Enter your surname" autofocus required/>
+								</div>
+							</div>
+							
 							<div class="mb-3">
 								<label for="email" class="form-label">Email</label>
-								<input type="text" class="form-control" id="email" name="email"
-									placeholder="Enter your email" />
+								<div class="input-group input-group-merge">
+									<span class="input-group-text"><i class="bx bx-envelope"></i></span>
+									<input type="email" class="form-control" name="email" id="email"
+									placeholder="Enter your email" autofocus required/>
+								</div>
 							</div>
+							
+							<div class="mb-3">
+								<label for="studentID" class="form-label">StudentID</label>
+								<div class="input-group input-group-merge">
+									<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
+									<input type="text" class="form-control" name="studentID" id="StudentID" placeholder="studentID"
+									placeholder="Enter your studentID" autofocus required/>
+								</div>
+							</div>
+							
+							<div class="mb-3">
+								<div class="form-check form-check-inline mt-3">
+									<input name="inlineRadioOptions" class="form-check-input" type="radio" value="male" id="male" checked>
+									<label class="form-check-label" for="male"> Male </label>
+								</div>
+								
+								<div class="form-check form-check-inline">
+									<input name="inlineRadioOptions" class="form-check-input" type="radio" value="female" id="female">
+									<label class="form-check-label" for="female"> Female </label>
+								</div>
+							</div>
+							
 							<div class="mb-3 form-password-toggle">
 								<label class="form-label" for="password">Password</label>
 								<div class="input-group input-group-merge">
