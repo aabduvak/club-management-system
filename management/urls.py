@@ -8,4 +8,5 @@ urlpatterns = [
     path('signin/', views.Signin.as_view(), name='signin-page'),
     path('reset/', views.ForgotPassword.as_view(), name='reset-page'),
     path('profile/', views.Account.as_view(), name='profile-page'),
+    path('settings/', views.Maintenance.as_view(), name='settings-page'),
 ]

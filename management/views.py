@@ -25,5 +25,9 @@ class Account(View):
 	def get(self, request):
 		return render(request, 'management/profile.html')
 
+class Maintenance(View):
+	def get(self, request):
+		return render(request, 'management/maintenance.html')
+
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
