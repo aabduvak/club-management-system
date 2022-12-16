@@ -20,3 +20,10 @@ class Signin(View):
 class ForgotPassword(View):
 	def get(self, request):
 		return render(request, 'management/reset.html')
+
+class Account(View):
+	def get(self, request):
+		return render(request, 'management/profile.html')
+
+def page_not_found(request, exception):
+    return render(request, '404.html', status=404)

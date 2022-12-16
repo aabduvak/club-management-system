@@ -23,3 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('management.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "management.views.page_not_found"
