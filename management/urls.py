@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/', views.Account.as_view(), name='profile-page'),
     path('settings/', views.Maintenance.as_view(), name='settings-page'),
     path('myclubs/', views.MyClubs.as_view(), name='myclubs-page'),
+    path('events/', views.Events.as_view(), name='events-page'),
 ]
