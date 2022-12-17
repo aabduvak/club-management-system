@@ -9,4 +9,5 @@ urlpatterns = [
     path('reset/', views.ForgotPassword.as_view(), name='reset-page'),
     path('profile/', views.Account.as_view(), name='profile-page'),
     path('settings/', views.Maintenance.as_view(), name='settings-page'),
+    path('myclubs/', views.MyClubs.as_view(), name='myclubs-page'),
 ]

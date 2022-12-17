@@ -4,5 +4,150 @@
 {% block page_title %}Dashboard{% endblock page_title %}
 
 {% block content %}
-<h1>Index Page</h1>
+<div class="col-12">
+	<h4 class="fw-bold py-3 mb-3"><span class="text-muted fw-light">List of</span> Events</h4>
+
+	<div class="row">		
+		<div class="col-md-6 col-lg-4 mb-3">
+			<div class="card h-60">
+				<img class="card-img-top" src="{% static 'assets/img/elements/2.jpg' %}" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title">Event title</h5>
+					<p class="card-text">
+						Some quick example text to build on the card title and make up the bulk of the card's content.
+					</p>
+					<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
+				</div>
+			</div>
+		</div>
+	
+		<div class="col-md-6 col-lg-4 mb-3">
+			<div class="card h-60">
+				<div class="card-body">
+					<h5 class="card-title">Event title</h5>
+					<p class="card-text">
+						Some quick example text to build on the card title and make up the bulk of the card's content.
+						</p>
+						<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
+					</div>
+				<img class="card-img-bottom" src="{% static 'assets/img/elements/1.jpg' %}" alt="Card image cap">
+			</div>
+		</div>
+	
+		<div class="col-md-6 col-lg-4 mb-3">
+			<div class="card h-60">
+				<img class="card-img-top" src="{% static 'assets/img/elements/3.jpg' %}" alt="Card image cap">
+				<div class="card-body">
+				<h5 class="card-title">Event title</h5>
+				<p class="card-text">
+					Some quick example text to build on the card title and make up the bulk of the card's content.
+				</p>
+				<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-12 mt-3">
+	<div class="card">
+		<h5 class="card-header">List of Clubs</h5>
+		
+		<div class="table-responsive text-nowrap">
+			<table class="table table-hover">
+				<thead class="table-light">
+					<tr>
+						<th>Name</th>
+						<th>Category</th>
+						<th>Lider</th>
+						<th>Active Users</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody class="table-border-bottom-0">
+					<tr>
+						<td></i> <strong>UTECH</strong></td>
+						<td>technology</td>
+						<td>
+							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+								<li
+									data-bs-toggle="tooltip"
+									data-popup="tooltip-custom"
+									data-bs-placement="top"
+									class="avatar avatar-xs pull-up"
+									title="Nurullah Guguk"
+								>
+									<img src="{% static 'assets/img/avatars/7.png' %}" alt="Avatar" class="rounded-circle" />
+								</li>
+							</ul>
+						</td>
+						<td>978</td>
+						<td>
+							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-task"></span>
+							</a>
+							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-detail"></span>
+							</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><strong>IEEE</strong></td>
+						<td>technology</td>
+						<td>
+							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+								<li
+									data-bs-toggle="tooltip"
+									data-popup="tooltip-custom"
+									data-bs-placement="top"
+									class="avatar avatar-xs pull-up"
+									title="Berna Şener"
+								>
+									<img src="{% static 'assets/img/avatars/6.png' %}" alt="Avatar" class="rounded-circle" />
+								</li>
+							</ul>
+						</td>
+						<td>436</td>
+						<td>
+							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-task"></span>
+							</a>
+							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-detail"></span>
+							</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><strong>Kizilay</strong></td>
+						<td>humanitary</td>
+						<td>
+							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+								<li
+									data-bs-toggle="tooltip"
+									data-popup="tooltip-custom"
+									data-bs-placement="top"
+									class="avatar avatar-xs pull-up"
+									title="Menekse Yamac"
+								>
+									<img src="{% static 'assets/img/avatars/5.png' %}" alt="Avatar" class="rounded-circle" />
+								</li>
+							</ul>
+						</td>
+						<td>1320</td>
+						<td>
+							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-task"></span>
+							</a>
+							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
+								<span class="tf-icons bx bx-detail"></span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+		  </table>
+		</div>
+	</div>
+</div>
 {% endblock content %}

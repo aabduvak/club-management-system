@@ -29,5 +29,10 @@ class Maintenance(View):
 	def get(self, request):
 		return render(request, 'management/maintenance.html')
 
+class MyClubs(View):
+	def get(self, request):
+		return render(request, 'management/my_clubs.html')
+
+
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
