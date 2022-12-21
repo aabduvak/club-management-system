@@ -5,6 +5,8 @@ from django.views import View
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required, permission_required
 
+from .forms import UserForm
+
 # Create your views here.
 class Index(View):
 	def get(self, request):
@@ -30,7 +32,7 @@ class Account(View):
 
 class Maintenance(View):
 	def get(self, request):
-		return render(request, 'management/maintenance.html')
+		return render(request, 'maintenance.html')
 
 class MyClubs(View):
 	def get(self, request):
@@ -40,9 +42,16 @@ class Events(View):
 	def get(self, request):
 		return render(request, 'management/events.html')
 
+class Event(View):
+	def get(self, request, slug):
+		return render(request, 'management/event.html')
+
 def logout(request):
     django_logout(request)
     return redirect(f'http://localhost:8000/signin')
 
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
+
+def permission_denied(request, exception):
+    return render(request, '403.html', status=403)
