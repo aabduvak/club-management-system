@@ -87,73 +87,76 @@
 						<h4 class="mb-2">Adventure starts here 🚀</h4>
 						<p class="mb-4">Make your club management easy and fun!</p>
 
-						<form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-							<div class="mb-3">
-								<label for="firstName" class="form-label">First Name</label>
-								<div class="input-group input-group-merge">
-									<span class="input-group-text"><i class="bx bx-user"></i></span>
-									<input type="text" class="form-control" name="firstName" id="firstName"
-									placeholder="Enter your first name" autofocus required/>
-								</div>
-							</div>
-							
-							<div class="mb-3">
-								<label for="lastName" class="form-label">Last Name</label>
-								<div class="input-group input-group-merge">
-									<span class="input-group-text"><i class="bx bx-user"></i></span>
-									<input type="text" class="form-control" name="lastName" id="lastName"
-									placeholder="Enter your last name" autofocus required/>
-								</div>
-							</div>
-							
-							<div class="mb-3">
-								<label for="email" class="form-label">Email</label>
-								<div class="input-group input-group-merge">
-									<span class="input-group-text"><i class="bx bx-envelope"></i></span>
-									<input type="email" class="form-control" name="email" id="email"
-									placeholder="Enter your email" autofocus required/>
-								</div>
-							</div>
-							
-							<div class="mb-3">
-								<label for="studentID" class="form-label">Student ID</label>
-								<div class="input-group input-group-merge">
-									<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
-									<input type="text" class="form-control" name="studentID" id="StudentID"
-									placeholder="Enter your student ID" autofocus required/>
-								</div>
-							</div>
-							
-							<div class="mb-3">
-								<div class="form-check form-check-inline mt-3">
-									<input name="inlineRadioOptions" class="form-check-input" type="radio" value="male" id="male" checked>
-									<label class="form-check-label" for="male"> Male </label>
+						<form id="formAuthentication" class="mb-3" action="{% url 'signup-page' %}" method="POST">
+							{% csrf_token %}
+							<div class="row">
+								<div class="mb-3">
+									<label for="firstName" class="form-label">First Name</label>
+									<div class="input-group input-group-merge">
+										<span class="input-group-text"><i class="bx bx-user"></i></span>
+										<input type="text" class="form-control" name="firstName" id="firstName"
+										placeholder="Enter your first name" autofocus required/>
+									</div>
 								</div>
 								
-								<div class="form-check form-check-inline">
-									<input name="inlineRadioOptions" class="form-check-input" type="radio" value="female" id="female">
-									<label class="form-check-label" for="female"> Female </label>
+								<div class="mb-3">
+									<label for="lastName" class="form-label">Last Name</label>
+									<div class="input-group input-group-merge">
+										<span class="input-group-text"><i class="bx bx-user"></i></span>
+										<input type="text" class="form-control" name="lastName" id="lastName"
+										placeholder="Enter your last name" autofocus required/>
+									</div>
 								</div>
-							</div>
-							
-							<div class="mb-3 form-password-toggle">
-								<label class="form-label" for="password">Password</label>
-								<div class="input-group input-group-merge">
-									<input type="password" id="password" class="form-control" name="password"
-										placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-										aria-describedby="password" />
-									<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+								
+								<div class="mb-3">
+									<label for="email" class="form-label">Email</label>
+									<div class="input-group input-group-merge">
+										<span class="input-group-text"><i class="bx bx-envelope"></i></span>
+										<input type="email" class="form-control" name="email" id="email"
+										placeholder="Enter your email" autofocus required/>
+									</div>
 								</div>
-							</div>
-
-							<div class="mb-3">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="terms-conditions"
-										name="terms" />
-									<label class="form-check-label" for="terms-conditions">
-										I agree to
-										<a href="javascript:void(0);">privacy policy & terms</a>
-									</label>
+								
+								<div class="mb-3">
+									<label for="studentID" class="form-label">Student ID</label>
+									<div class="input-group input-group-merge">
+										<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
+										<input type="text" class="form-control" name="studentID" id="StudentID"
+										placeholder="Enter your student ID" autofocus required/>
+									</div>
+								</div>
+								
+								<div class="mb-3">
+									<div class="form-check form-check-inline mt-3">
+										<input name="inlineRadioOptions" class="form-check-input" type="radio" value="male" id="male" checked>
+										<label class="form-check-label" for="male"> Male </label>
+									</div>
+									
+									<div class="form-check form-check-inline">
+										<input name="inlineRadioOptions" class="form-check-input" type="radio" value="female" id="female">
+										<label class="form-check-label" for="female"> Female </label>
+									</div>
+								</div>
+								
+								<div class="mb-3 form-password-toggle">
+									<label class="form-label" for="password">Password</label>
+									<div class="input-group input-group-merge">
+										<input type="password" id="password" class="form-control" name="password"
+											placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+											aria-describedby="password" />
+										<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+									</div>
+								</div>
+	
+								<div class="mb-3">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="terms-conditions"
+											name="terms" required />
+										<label class="form-check-label" for="terms-conditions">
+											I agree to
+											<a href="javascript:void(0);">privacy policy & terms</a>
+										</label>
+									</div>
 								</div>
 							</div>
 							<button class="btn btn-primary d-grid w-100">Sign up</button>
