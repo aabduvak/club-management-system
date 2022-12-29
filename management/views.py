@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 
-from django.contrib.auth import logout as django_logout, login, authenticate
-from django.contrib.auth.decorators import login_required, permission_required
-
 from .models import User, Role
 
 # Create your views here.
@@ -13,7 +10,7 @@ class Index(View):
 	def get(self, request):
 		studentID = request.session.get('id')
 		if (studentID is not None):
-			user = User.objects.filter(studentID=studentID)
+			user = User.objects.get(studentID=studentID)
 			
 			context = {
 				'user': user,
@@ -65,7 +62,25 @@ class ForgotPassword(View):
 
 class Account(View):
 	def get(self, request):
-		return render(request, 'management/profile.html')
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+            
+			context = {
+                'user': user,
+            }
+			return render(request,'management/profile.html', context)
+		return redirect(reverse('signin-page'))
+	
+	def post(self, request):
+		studentID = request.session.get('id')
+		
+		user = User.objects.get(studentID=studentID)
+		user.photo = request.FILES['photo']
+		user.save()
+		return redirect(reverse('profile-page'))
+        
 
 class Maintenance(View):
 	def get(self, request):
@@ -84,7 +99,6 @@ class Event(View):
 		return render(request, 'management/event.html')
 
 def logout(request):
-    django_logout(request)
     return redirect(reverse('signin-page'))
 
 def page_not_found(request, exception):

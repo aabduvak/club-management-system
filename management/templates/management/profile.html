@@ -4,126 +4,146 @@
 {% block page_title %}Account{% endblock page_title %}
 
 {% block content %}
-<div class="col-md-12">
+{% include 'components/menu.html' %}
+<div class="layout-page">
+	{% include 'components/navbar.html' with user=user %}
+	
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<div class="row">
+				<div class="col-md-12">
 
-	<div class="card mb-4">
-		<h5 class="card-header">Profile Details</h5>
-		<div class="card-body">
-			<div class="d-flex align-items-start align-items-sm-center gap-4">
-				<img src="{% static 'assets/img/avatars/1.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
-				<div class="button-wrapper">
-					<label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-						<span class="d-none d-sm-block">Upload new photo</span>
-						<i class="bx bx-upload d-block d-sm-none"></i>
-						<input type="file" id="upload" class="account-file-input" hidden
-							accept="image/png, image/jpeg" />
-					</label>
-					<button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-						<i class="bx bx-reset d-block d-sm-none"></i>
-						<span class="d-none d-sm-block">Reset</span>
-					</button>
-
-					<p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
+					<div class="card mb-4">
+						<form method="POST" enctype="multipart/form-data" action={% url 'profile-page' %}>	
+							{% csrf_token %}
+							<h5 class="card-header">Profile Details</h5>
+							
+							<div class="card-body">
+								<div class="d-flex align-items-start align-items-sm-center gap-4">
+									<img src="
+									{% if user.photo %}
+										{{user.photo.url}}
+									{% else %}
+										{% static 'assets/img/avatars/default.jpg' %}
+									{% endif %}
+									" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+								
+									<div class="button-wrapper">
+											<label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+												<span class="d-none d-sm-block">Upload new photo</span>
+												<i class="bx bx-upload d-block d-sm-none"></i>
+												<input type="file" id="upload" class="account-file-input" hidden
+												accept="image/png, image/jpeg" name='photo' />
+											</label>
+											
+										<p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
+									</div>
+								</div>
+							</div>
+							
+							<hr class="my-0" />
+							
+							<div class="card-body">
+									<div class="row">
+										
+										<div class="mb-3 col-md-6">
+											<label for="firstName" class="form-label">First Name</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<input class="form-control" type="text" id="firstName" name="firstName" value="{{user.first_name}}" autofocus/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="lastName" class="form-label">Last Name</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bx-user"></i></span>
+												<input class="form-control" type="text" name="lastName" id="lastName" value="{{user.last_name}}" />
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="studentID" class="form-label">Student ID</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
+												<input class="form-control" type="text" id="studentID" name="studentID" value="{{user.studentID}}" autofocus/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="email" class="form-label">E-mail</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bx-envelope"></i></span>
+												<input class="form-control" type="text" id="email" name="email" value="{{user.email}}"/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="organization" class="form-label">Leader</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text" style="background-color: #eceef1;"><i class="bx bx-group"></i></span>
+												<input type="text" class="form-control" id="organization" name="organization" value="IEEE" disabled/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label class="form-label" for="university">University</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bxs-school"></i></span>
+												<select id="faculty" class="select2 form-select">
+													<option value="">Select</option>
+													<option selected value="Uskudar University">Uskudar University</option>
+												</select>
+											</div>
+										</div>
+						
+										
+										<div class="mb-3 col-md-6">
+											<label class="form-label" for="country">Faculty</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bx-buildings"></i></span>
+												<select id="faculty" class="select2 form-select">
+													<option value="">Select</option>
+													<option value="Communication">Communication</option>
+													<option value="Dentistry">Dentistry</option>
+													<option value="Medicine">Medicine</option>
+													<option value="Health Science">Health Science</option>
+													<option selected value="Engineering">Engineering</option>
+													<option value="Social Science">Social Science</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="class" class="form-label">Class</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class="bx bx-group"></i></span>
+												<select id="class" class="select2 form-select">
+													<option value="">Select Class</option>
+													<option value="Preparatory">Preparatory</option>
+													<option value="1. Class">1. Class</option>
+													<option value="2. Class">2. Class</option>
+													<option selected value="3. Class">3. Class</option>
+													<option value="4. Class">4. Class</option>
+													<option value="5. Class">5. Class</option>
+													<option value="6. Class">6. Class</option>
+													<option value="Other">Other</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									
+									<div class="mt-2">
+										<button type="submit" class="btn btn-primary me-2">Save changes</button>
+									</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-		<hr class="my-0" />
-		<div class="card-body">
-			<form id="formAccountSettings" method="POST" onsubmit="return false">
-				<div class="row">
-					
-					<div class="mb-3 col-md-6">
-						<label for="firstName" class="form-label">First Name</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bx-user"></i></span>
-							<input class="form-control" type="text" id="firstName" name="firstName" value="John" autofocus/>
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label for="lastName" class="form-label">Last Name</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bx-user"></i></span>
-							<input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label for="studentID" class="form-label">Student ID</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
-							<input class="form-control" type="text" id="studentID" name="studentID" value="200209949" autofocus/>
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label for="email" class="form-label">E-mail</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bx-envelope"></i></span>
-							<input class="form-control" type="text" id="email" name="email" value="john.doe@st.uskudar.edu.tr"/>
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label for="organization" class="form-label">Leader</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text" style="background-color: #eceef1;"><i class="bx bx-group"></i></span>
-							<input type="text" class="form-control" id="organization" name="organization" value="IEEE" disabled/>
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label class="form-label" for="university">University</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bxs-school"></i></span>
-							<select id="faculty" class="select2 form-select">
-								<option value="">Select</option>
-								<option selected value="Uskudar University">Uskudar University</option>
-							</select>
-						</div>
-					</div>
-	
-					
-					<div class="mb-3 col-md-6">
-						<label class="form-label" for="country">Faculty</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bx-buildings"></i></span>
-							<select id="faculty" class="select2 form-select">
-								<option value="">Select</option>
-								<option value="Communication">Communication</option>
-								<option value="Dentistry">Dentistry</option>
-								<option value="Medicine">Medicine</option>
-								<option value="Health Science">Health Science</option>
-								<option selected value="Engineering">Engineering</option>
-								<option value="Social Science">Social Science</option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="mb-3 col-md-6">
-						<label for="class" class="form-label">Class</label>
-						<div class="input-group input-group-merge">
-							<span class="input-group-text"><i class="bx bx-group"></i></span>
-							<select id="class" class="select2 form-select">
-								<option value="">Select Class</option>
-								<option value="Preparatory">Preparatory</option>
-								<option value="1. Class">1. Class</option>
-								<option value="2. Class">2. Class</option>
-								<option selected value="3. Class">3. Class</option>
-								<option value="4. Class">4. Class</option>
-								<option value="5. Class">5. Class</option>
-								<option value="6. Class">6. Class</option>
-								<option value="Other">Other</option>
-							</select>
-						</div>
-					</div>
-				
-				</div>
-				<div class="mt-2">
-					<button type="submit" class="btn btn-primary me-2">Save changes</button>
-				</div>
-			</form>
-		</div>
+		{% include 'components/footer.html' %}
+		<div class="content-backdrop fade"></div>
 	</div>
 </div>
 {% endblock content %}
