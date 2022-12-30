@@ -18,7 +18,6 @@ class Index(View):
 			return render(request, 'management/index.html', context)
 		return redirect(reverse('signin-page'))
 		
-		
 class Signup(View):
 	def get(self, request):
 		return render(request, 'management/signup.html')
@@ -86,7 +85,6 @@ class Account(View):
 		user.save()
 		return redirect(reverse('profile-page'))
         
-
 class Maintenance(View):
 	def get(self, request):
 		return render(request, 'maintenance.html')
@@ -103,8 +101,10 @@ class Event(View):
 	def get(self, request, slug):
 		return render(request, 'management/event.html')
 
-def logout(request):
-    return redirect(reverse('signin-page'))
+class Logout(View):
+    def get(self, request):
+        request.session.clear()
+        return redirect(reverse('signin-page'))
 
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
