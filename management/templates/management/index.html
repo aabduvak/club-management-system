@@ -14,46 +14,21 @@
 			<div class="row">
 				<div class="col-12">
 					<h4 class="fw-bold py-3 mb-3"><span class="text-muted fw-light">List of</span> Events</h4>
-				
-					<div class="row">		
-						<div class="col-md-6 col-lg-4 mb-3">
-							<div class="card h-60">
-								<img class="card-img-top" src="{% static 'assets/img/elements/2.jpg' %}" alt="Card image cap">
-								<div class="card-body">
-									<h5 class="card-title">Event title</h5>
-									<p class="card-text">
-										Some quick example text to build on the card title and make up the bulk of the card's content.
-									</p>
-									<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
-								</div>
-							</div>
-						</div>
-					
-						<div class="col-md-6 col-lg-4 mb-3">
-							<div class="card h-60">
-								<div class="card-body">
-									<h5 class="card-title">Event title</h5>
-									<p class="card-text">
-										Some quick example text to build on the card title and make up the bulk of the card's content.
+					<div class="row">
+						{% for event in events%}
+							<div class="col-md-6 col-lg-4 mb-3">
+								<div class="card h-60">
+									<img class="card-img-top" src="{{ event.img.url }}" alt="{{ event.title }}">
+									<div class="card-body">
+										<h5 class="card-title">{{ event.title }}</h5>
+										<p class="card-text">
+											{{ event.short_desc|linebreaks }}
 										</p>
-										<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
+										<a href="{{ event.get_absolute_url }}" class="btn btn-outline-primary">details</a>
 									</div>
-								<img class="card-img-bottom" src="{% static 'assets/img/elements/1.jpg' %}" alt="Card image cap">
-							</div>
-						</div>
-					
-						<div class="col-md-6 col-lg-4 mb-3">
-							<div class="card h-60">
-								<img class="card-img-top" src="{% static 'assets/img/elements/3.jpg' %}" alt="Card image cap">
-								<div class="card-body">
-								<h5 class="card-title">Event title</h5>
-								<p class="card-text">
-									Some quick example text to build on the card title and make up the bulk of the card's content.
-								</p>
-								<a href="javascript:void(0)" class="btn btn-outline-primary">details</a>
 								</div>
 							</div>
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 				

@@ -1,8 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
 
-{% block page_title %}Event{% endblock page_title %}
+{% block page_title %}{{event.title}}{% endblock page_title %}
 
 {% block content %}
-<h2>Event Details</h2>
+{% include 'components/menu.html' with event_active="active"%}
+<div class="layout-page">
+	{% include 'components/navbar.html' with user=user %}
+	
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<h3 class="fw-bold py-3 mb-3">{{event.title}}</h3>
+			
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+					<div class="card">
+						<img class="card-img" src="{{ event.img.url }}" alt="{{ event.title }}">
+					</div>
+					<div class="card mt-3">
+						<div class="card-body">
+							<p class="card-text">
+								<span class="fw-bold">Date: </span><br>
+								{{ event.date|date:"d F Y - H:i" }}	
+							</p>
+							<p class="card-text">
+								<span class="fw-bold">Place: </span><br>
+								{{ event.place }}
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-8 col-xl-8 mb-4">
+					<div class="card">
+						<div class="card-body">
+							<p class="card-text">
+								{{event.long_desc|linebreaks}}	
+							</p>
+							
+							{% if joined %}
+								<p class="card-text fw-bold">
+									You are registered successfully!
+								</p>
+							{% else %}
+								<form action="{{event.get_absolute_url}}" method='POST'>
+									{% csrf_token %}
+									
+									<button type="submit" class="btn btn-primary">join</button>
+								</form>
+							{% endif %}
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		{% include 'components/footer.html' %}
+		<div class="content-backdrop fade"></div>
+	</div>
+</div>
 {% endblock content %}

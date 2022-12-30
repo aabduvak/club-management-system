@@ -11,9 +11,10 @@ class Index(View):
 		studentID = request.session.get('id')
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
-			
+			events = Event.objects.order_by('-id')[:9]
 			context = {
 				'user': user,
+				'events': events
 			}
 			return render(request, 'management/index.html', context)
 		return redirect(reverse('signin-page'))
@@ -103,7 +104,7 @@ class Events(View):
 		
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
-			events = Event.objects.order_by('-id')[:9]
+			events = user.events.order_by('-id')[:9]
 			
 			context = {
                 'user': user,
@@ -114,7 +115,37 @@ class Events(View):
 
 class EventDetail(View):
 	def get(self, request, slug):
-		return render(request, 'management/event.html')
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			event = Event.objects.get(slug=slug)
+			user = User.objects.get(studentID=studentID)
+			
+			joined = event.users.filter(studentID=studentID)
+			context = {
+				'event': event,
+				'user': user,
+				'joined': joined
+			}
+			return render(request, 'management/event.html', context)
+		return redirect(reverse('signin-page'))
+	
+	def post(self, request, slug):
+		studentID = request.session.get('id')
+		if (studentID is not None):
+			event = Event.objects.get(slug=slug)
+			user = User.objects.get(studentID=studentID)
+			event.users.add(user)
+			event.save()
+			
+			context = {
+                'user': user,
+				'event': event,
+				'joined': True
+            }
+			return render(request,'management/event.html', context)
+		return redirect(reverse('signin-page'))
+			
 
 class Logout(View):
     def get(self, request):

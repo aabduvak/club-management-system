@@ -41,6 +41,8 @@ class Event(models.Model):
 	img = models.ImageField(upload_to='posts')
 	date = models.DateTimeField(auto_now_add= True,verbose_name="Date")
 	club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubs', null=True)
+	place = models.CharField(max_length=200, default='')
+	users = models.ManyToManyField(User, related_name='events')
 	slug = models.SlugField(unique=True, blank=True, default='', null=False)
 	
 	def get_absolute_url(self):
