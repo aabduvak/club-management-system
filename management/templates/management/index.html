@@ -4,7 +4,7 @@
 {% block page_title %}Dashboard{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' %}
+{% include 'components/menu.html' with dashboard_active="active" %}
 
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}

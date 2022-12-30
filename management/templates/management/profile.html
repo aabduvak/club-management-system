@@ -4,7 +4,7 @@
 {% block page_title %}Account{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' %}
+{% include 'components/menu.html' with account_active="active"%}
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}
 	
@@ -50,7 +50,7 @@
 											<label for="firstName" class="form-label">First Name</label>
 											<div class="input-group input-group-merge">
 												<span class="input-group-text"><i class="bx bx-user"></i></span>
-												<input class="form-control" type="text" id="firstName" name="firstName" value="{{user.first_name}}" autofocus/>
+												<input class="form-control" type="text" id="first_name" name="first_name" value="{{user.first_name}}" autofocus/>
 											</div>
 										</div>
 										
@@ -58,7 +58,7 @@
 											<label for="lastName" class="form-label">Last Name</label>
 											<div class="input-group input-group-merge">
 												<span class="input-group-text"><i class="bx bx-user"></i></span>
-												<input class="form-control" type="text" name="lastName" id="lastName" value="{{user.last_name}}" />
+												<input class="form-control" type="text" name="last_name" id="first_name" value="{{user.last_name}}" />
 											</div>
 										</div>
 										
@@ -66,7 +66,7 @@
 											<label for="studentID" class="form-label">Student ID</label>
 											<div class="input-group input-group-merge">
 												<span class="input-group-text"><i class="bx bxs-graduation"></i></span>
-												<input class="form-control" type="text" id="studentID" name="studentID" value="{{user.studentID}}" autofocus/>
+												<input class="form-control" type="text" id="studentID" name="studentID" disabled value="{{user.studentID}}" autofocus/>
 											</div>
 										</div>
 										

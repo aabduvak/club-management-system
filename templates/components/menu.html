@@ -60,28 +60,28 @@
 
 	<ul class="menu-inner py-1">
 		<!-- Dashboard -->
-		<li class="menu-item active">
+		<li class="menu-item {{ dashboard_active }}">
 			<a href="{% url 'index-page' %}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-home-circle"></i>
 				<div data-i18n="Analytics">Dashboard</div>
 			</a>
 		</li>
 
-		<li class="menu-item">
+		<li class="menu-item {{ account_active }}">
 			<a href="{% url 'profile-page' %}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-dock-top"></i>
 				<div data-i18n="Account Settings">Account</div>
 			</a>
 		</li>
 		
-		<li class="menu-item">
+		<li class="menu-item {{ clubs_active }}">
 			<a href="{% url 'myclubs-page' %}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-group"></i>
 				<div data-i18n="Account">My Clubs</div>
 			</a>
 		</li>
 		
-		<li class="menu-item">
+		<li class="menu-item {{ event_active }}">
 			<a href="{% url 'events-page' %}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-calendar-event"></i>
 				<div data-i18n="Notifications">Events</div>

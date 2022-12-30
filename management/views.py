@@ -77,7 +77,12 @@ class Account(View):
 		studentID = request.session.get('id')
 		
 		user = User.objects.get(studentID=studentID)
-		user.photo = request.FILES['photo']
+		if 'photo' in request.FILES:
+			user.photo = request.FILES['photo']
+		user.first_name = request.POST.get('first_name')
+		user.last_name = request.POST.get('last_name')
+		user.email = request.POST.get('email')
+		
 		user.save()
 		return redirect(reverse('profile-page'))
         
