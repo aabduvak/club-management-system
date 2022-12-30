@@ -12,5 +12,5 @@ urlpatterns = [
     path('myclubs/', views.MyClubs.as_view(), name='myclubs-page'),
     path('events/', views.Events.as_view(), name='events-page'),
     path('logout/', views.Logout.as_view(), name='logout'),
-    path('events/<slug:slug>', views.Event.as_view(), name='event-page'),
+    path('events/<slug:slug>', views.EventDetail.as_view(), name='event-page'),
 ]

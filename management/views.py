@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 
-from .models import User, Role
+from .models import User, Role, Event, Club
 
 # Create your views here.
 
@@ -65,9 +65,13 @@ class Account(View):
 		
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
-            
+			is_leader = Club.objects.filter(leader=user).exists()
+			if (is_leader):
+				club = Club.objects.get(leader=user)
+			
 			context = {
                 'user': user,
+				'club': club,
             }
 			return render(request,'management/profile.html', context)
 		return redirect(reverse('signin-page'))
@@ -95,9 +99,20 @@ class MyClubs(View):
 
 class Events(View):
 	def get(self, request):
-		return render(request, 'management/events.html')
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			events = Event.objects.order_by('-id')[:9]
+			
+			context = {
+                'user': user,
+				'events': events
+            }
+			return render(request,'management/events.html', context)
+		return redirect(reverse('signin-page'))
 
-class Event(View):
+class EventDetail(View):
 	def get(self, request, slug):
 		return render(request, 'management/event.html')
 

@@ -1,5 +1,6 @@
 from django.db import models
-# Create your models here.
+from django.utils.text import slugify
+from django.urls import reverse
 
 class Role(models.Model):
 	title = models.CharField(max_length=100)	
@@ -25,10 +26,31 @@ class User(models.Model):
 	def get_absolute_url(self):
 		return "/users/%i/" % (self.pk)
 
+class Club(models.Model):
+	name = models.CharField(max_length=200)
+	description = models.TextField()
+	img = models.ImageField(upload_to='clubs')
+	leader = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='leader', blank=True, null=True)
+	def __str__(self):
+		return f'{self.name}'
+
 class Event(models.Model):
 	title = models.CharField(max_length=200)
-	short_desc = models.CharField(max_length=400)
+	short_desc = models.TextField()
 	long_desc = models.TextField()
 	img = models.ImageField(upload_to='posts')
 	date = models.DateTimeField(auto_now_add= True,verbose_name="Date")
+	club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubs', null=True)
+	slug = models.SlugField(unique=True, blank=True, default='', null=False)
 	
+	def get_absolute_url(self):
+		return reverse('event-page', args=[self.slug])
+
+	def save(self, *args, **kwargs):
+		if not self.slug:
+            # Generate a slug from the title if the slug is not set
+			self.slug = slugify(self.title)
+			super().save(*args, **kwargs)
+	
+	def __str__(self):
+		return f'{self.title} | {self.club}'
