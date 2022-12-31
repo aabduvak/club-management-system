@@ -5,7 +5,7 @@ from django.views import View
 from django.utils.text import slugify
 
 
-from .models import User, Role, Event, Club, Comment
+from .models import *
 
 # Create your views here.
 
@@ -47,6 +47,7 @@ class Signup(View):
 			email = request.POST.get('email')
 						
 			user = User(first_name=name, last_name=surname,email=email, password=password, studentID=id)
+			user.role = Role.objects.get(title="Student")
 			user.save()
 			
 			request.session['id'] = id
@@ -191,7 +192,7 @@ class ClubDetail(View):
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
 			club = Club.objects.get(slug=slug)
-			comments = Comment.objects.all()
+			comments = club.comments.all()
 			context = {
 				'club': club,
 				'user': user,
@@ -303,9 +304,7 @@ class DeleteEventView(View):
 	
 	def get(self, request, slug):
 		return render(request, '405.html', status=405)
-
-
-
+		
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
 

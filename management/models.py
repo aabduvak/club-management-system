@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.db.models import Avg
 
 class Role(models.Model):
 	title = models.CharField(max_length=100)	
