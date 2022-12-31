@@ -5,7 +5,7 @@ from django.views import View
 from django.utils.text import slugify
 
 
-from .models import User, Role, Event, Club
+from .models import User, Role, Event, Club, Comment
 
 # Create your views here.
 
@@ -17,10 +17,16 @@ class Index(View):
 			events = Event.objects.order_by('-id')[:9]
 			clubs = Club.objects.order_by('name')
 			
+			is_leader = Club.objects.filter(leader=user).exists()
+			club = None
+			if (is_leader):
+				club = Club.objects.get(leader=user)
+							
 			context = {
 				'user': user,
 				'events': events,
-				'clubs': clubs
+				'clubs': clubs,
+				'club': club,
 			}
 			
 			return render(request, 'management/index.html', context)
@@ -97,7 +103,7 @@ class Account(View):
 		
 		user.save()
 		return redirect(reverse('profile-page'))
-        
+		
 class Maintenance(View):
 	def get(self, request):
 		return render(request, 'maintenance.html')
@@ -114,9 +120,14 @@ class Events(View):
 			user = User.objects.get(studentID=studentID)
 			events = user.events.order_by('-id')[:9]
 			
+			is_leader = Club.objects.filter(leader=user).exists()
+			club = None
+			if (is_leader):
+				club = Club.objects.get(leader=user)
 			context = {
                 'user': user,
-				'events': events
+				'events': events,
+				'club': club,
             }
 			return render(request,'management/events.html', context)
 		return redirect(reverse('signin-page'))
@@ -128,15 +139,10 @@ class EventDetail(View):
 		if (studentID is not None):
 			event = Event.objects.get(slug=slug)
 			user = User.objects.get(studentID=studentID)
-			joined = event.users.filter(studentID=studentID)
-			leader = False
-			if event.club.leader == user:
-				leader = True
 			context = {
 				'event': event,
 				'user': user,
-				'joined': joined,
-				'leader': leader
+				'club': event.club
 			}
 			return render(request, 'management/event.html', context)
 		return redirect(reverse('signin-page'))
@@ -151,8 +157,7 @@ class EventDetail(View):
 			
 			context = {
                 'user': user,
-				'event': event,
-				'joined': True
+				'event': event
             }
 			return render(request,'management/event.html', context)
 		return redirect(reverse('signin-page'))
@@ -169,12 +174,26 @@ class ClubDetail(View):
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
 			club = Club.objects.get(slug=slug)
-			
+			comments = Comment.objects.all()
 			context = {
 				'club': club,
 				'user': user,
+				'comments': comments
 			}
 			return render(request, 'management/club.html', context)
+		return redirect(reverse('signin-page'))
+	
+	def post(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			comment = Comment.objects.create(entered_text=request.POST.get('entered_text'), club=club, user=user)
+			
+			comment.save()
+			
+			return redirect(reverse('club-page', args=[slug]))
 		return redirect(reverse('signin-page'))
 
 class ClubJoinView(View):
@@ -244,6 +263,7 @@ class CreateEventView(View):
 					img = request.FILES['img']
 				
 				event = Event.objects.create(title=title, place=place, date=date, short_desc=short, long_desc=long, img=img, club=club)
+				event.users.add(user)
 				event.save()
 				
 				return redirect(reverse('events-page'))

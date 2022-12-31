@@ -4,7 +4,7 @@
 {% block page_title %}Account{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' with account_active="active"%}
+{% include 'components/menu.html' with user=user clubs=clubs account_active="active"%}
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}
 	

@@ -4,7 +4,7 @@
 {% block page_title %}{{club.name}}{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' with clubs_active="active"%}
+{% include 'components/menu.html' with user=user clubs_active="active"%}
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}
 	
@@ -14,8 +14,25 @@
 			
 			<div class="row">
 				<div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-					<div class="card">
+					<div class="card ">
 						<img class="card-img" src="{{ club.img.url }}" alt="{{ club.name }}">
+					</div>
+					
+					<div class="card mt-4">
+						<div class="card-body">
+							<p class="card-text">
+								<span class="fw-bold">Leader: </span><br>
+								{{ club.leader.first_name}} {{ club.leader.last_name}} 
+							</p>
+							<p class="card-text">
+								<span class="fw-bold">Leader's Email: </span><br>
+								{{ club.leader.email}} 
+							</p>
+							<p class="card-text">
+								<span class="fw-bold">Active Users: </span><br>
+								{{ club.users.count }}
+							</p>
+						</div>
 					</div>
 				</div>
 				
@@ -38,6 +55,55 @@
 									</a>
 								{% endif %}
 							</p>
+						</div>
+					</div>
+					
+					<div class="card mt-4">
+						<h4 class="card-header">📝 Leave Comment</h4>
+						<div class="card-body">
+							{% if not comments %}
+								<p class="card-text">Your comment will be first!</p>
+							{% endif %}
+							
+							<ul class='list-unstyled users-list'>
+								{% for comment in comments %}
+									
+									<li class="d-block border p-2 rounded mb-3"
+									title="{{comment.user.first_name|title}} {{comment.user.last_name|title}}">
+										<div class='row d-flex align-items-baseline'>
+											<div class="col-1">											
+												<img src="
+												{% if comment.user.photo %}
+													{{comment.user.photo.url}}
+												{% else %}
+													{% static 'assets/img/avatars/default.jpg' %}
+												{% endif %}
+												" alt="Avatar" class="rounded-circle h-auto w-100" />
+											</div>
+											<div class="col-5">
+												<p class="card-text mt-1">{{comment.user.first_name|title}} {{comment.user.last_name|title}}</p>
+											</div>
+											<div class="col-6">
+												| {{ comment.datetime|date:"d F Y - H:i" }}
+											</div>
+										</div>
+										<p class="card-text mt-1">{{comment.entered_text}}</p>
+									</li>
+								{% endfor %}
+							</ul>
+							
+							<form method="POST" action="{{club.get_absolute_url}}">
+								{% csrf_token %}
+								<div class="mb-3 col-md-8">
+									<label for="text" class="form-label">Comment</label>
+									<div class="input-group input-group-merge">
+										<span class="input-group-text"><i class="bx bx-note"></i></span>
+										<input class="form-control" type="text" id="text" name="entered_text" autofocus/>
+									</div>
+									
+									<button class='btn btn-primary mt-3' type='submit'>Submit</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

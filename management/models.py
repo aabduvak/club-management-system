@@ -68,3 +68,13 @@ class Event(models.Model):
 	
 	def __str__(self):
 		return f'{self.title} | {self.club}'
+
+class Comment(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+	entered_text = models.TextField(max_length=400)
+	club = models.ForeignKey(Club, on_delete=models.CASCADE,
+                             related_name='comments')
+	datetime = models.DateTimeField(auto_now_add=True, null=True)
+	
+	def __str__(self):
+		return f'Comment by {self.user} on {self.club} at {self.datetime}'

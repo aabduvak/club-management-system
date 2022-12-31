@@ -5,7 +5,7 @@
 {% block page_title %}{{event.title}}{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' with event_active="active"%}
+{% include 'components/menu.html' with club=club user=user event_active="active"%}
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}
 	
@@ -40,7 +40,7 @@
 							</p>
 
 							<p class="card-text fw-bold">
-								{% if joined %}
+								{% if user in event.users.all %}
 									<span class='fw-bold'>You are registered successfully!</span>
 								{% else %}
 									<form action="{{event.get_absolute_url}}" method='POST'>
@@ -50,7 +50,7 @@
 									</form>
 								{% endif %}
 									
-								{% if leader %}
+								{% if club.leader == user %}
 									{% include 'components/modal.html' with request_url=event.get_absolute_url|add:"/delete" method="POST" text="Confirm that you want to delete this record." %}
 									<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#delete">
 										Delete

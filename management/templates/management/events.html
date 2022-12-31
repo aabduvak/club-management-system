@@ -4,7 +4,7 @@
 {% block page_title %}Events{% endblock page_title %}
 
 {% block content %}
-{% include 'components/menu.html' with event_active="active"%}
+{% include 'components/menu.html' with user=user club=club event_active="active"%}
 <div class="layout-page">
 	{% include 'components/navbar.html' with user=user %}
 	

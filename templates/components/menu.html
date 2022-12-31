@@ -87,16 +87,14 @@
 			</a>
 		</li>
 		
-		{% for club in clubs %}
-			{% if user == club.leader %}
-				<li class="menu-item {{ create_event_active }}">
-					<a href="{{club.get_absolute_url}}/create" class="menu-link">
-						<i class="menu-icon tf-icons bx bx-message-square-add"></i>
-						<div data-i18n="Notifications">Create Event</div>
-					</a>
-				</li>
-			{% endif %}
-		{% endfor %}
+		{% if user == club.leader %}
+			<li class="menu-item {{ create_event_active }}">
+				<a href="{{club.get_absolute_url}}/create" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-message-square-add"></i>
+					<div data-i18n="Notifications">Create Event</div>
+				</a>
+			</li>
+		{% endif %}
 			
 		
 		<li class="menu-item">
