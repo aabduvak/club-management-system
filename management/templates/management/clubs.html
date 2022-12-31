@@ -4,247 +4,223 @@
 {% block page_title %}My Clubs{% endblock page_title %}
 
 {% block content %}
-<div class="col-12">
-	<div class="card">
-		<h5 class="card-header">List of Clubs</h5>
-		
-		<div class="table-responsive text-nowrap">
-			<table class="table table-hover">
-				<thead class="table-light">
-					<tr>
-						<th>Name</th>
-						<th>Category</th>
-						<th>Lider</th>
-						<th>My Role</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody class="table-border-bottom-0">
-					<tr>
-						<td></i> <strong>UTECH</strong></td>
-						<td>technology</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Nurullah Guguk"
-								>
-									<img src="{% static 'assets/img/avatars/7.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>IT Team Member</td>
-						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-								  	<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-detail me-1"></i> View Details
-									</a>
-									<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-edit-alt me-1"></i> Edit
-									</a>
-								  	<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-comment-detail me-1"></i> Report
-									</a>
-								  	<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-trash me-1"></i> Leave
-									</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td></i> <strong>IEEE</strong></td>
-						<td>technology</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Nurullah Guguk"
-								>
-									<img src="{% static 'assets/img/avatars/6.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>Member</td>
-						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-								  	<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-detail me-1"></i> View Details
-									</a>
-								  	<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-comment-detail me-1"></i> Report
-									</a>
-								  	<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-trash me-1"></i> Leave
-									</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-					
-					<tr>
-						<td><strong>Kizilay</strong></td>
-						<td>technology</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Nurullah Guguk"
-								>
-									<img src="{% static 'assets/img/avatars/5.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>Member</td>
-						<td>
-							<div class="dropdown">
-								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-								  	<i class="bx bx-dots-vertical-rounded"></i>
-								</button>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-detail me-1"></i> View Details
-									</a>
-									<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-comment-detail me-1"></i> Report
-									</a>
-								  	<a class="dropdown-item" href="javascript:void(0);">
-										<i class="bx bx-trash me-1"></i> Leave
-									</a>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-				<tfoot class="table-border-bottom-0">
-					<tr>
-						<th>Name</th>
-						<th>Category</th>
-						<th>Lider</th>
-						<th>My Role</th>
-						<th>Action</th>
-					</tr>
-				</tfoot>
-		  </table>
-		</div>
-	</div>
+{% include 'components/menu.html' with user=user club=club clubs_active="active" %}
+<div class="layout-page">
+	{% include 'components/navbar.html' with user=user %}
 	
-	<div class="card mt-4">
-		<h5 class="card-header">Available Other Clubs</h5>
-		
-		<div class="table-responsive text-nowrap">
-			<table class="table table-hover">
-				<thead class="table-light">
-					<tr>
-						<th>Name</th>
-						<th>Category</th>
-						<th>Lider</th>
-						<th>Active Users</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody class="table-border-bottom-0">
-					<tr>
-						<td></i> <strong>AFAD</strong></td>
-						<td>humanitary</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Nurullah Guguk"
-								>
-									<img src="{% static 'assets/img/avatars/7.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>978</td>
-						<td>
-							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-task"></span>
-							</a>
-							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-detail"></span>
-							</a>
-						</td>
-					</tr>
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<div class="row">
+				<div class="col-12">
+					<h4 class="fw-bold py-3 mb-3">Clubs<span class="text-muted fw-light"> you have joined</span></h4>
+					<div class="card">
+						<div class="table-responsive text-nowrap">
+							<table class="table table-hover">
+								<thead class="table-light">
+									<tr>
+										<th>Logo</th>
+										<th>Name</th>
+										<th>Lider</th>
+										<th>Users</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody class="table-border-bottom-0">
+									{% if my_clubs.count < 1 %}
+										<tr>
+											<td>
+												<p class='card-text'>You didn't join to any club! 😔</p>
+											</td>
+										</tr>
+									{% endif %}
+									{% for club in my_clubs %}
+										<tr>
+											<td>
+												<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li
+														data-bs-toggle="tooltip"
+														data-popup="tooltip-custom"
+														data-bs-placement="top"
+														class="avatar avatar-s pull-up"
+														title="{{club.name}}"
+													>
+														<img src="
+														{% if club.img %}
+															{{club.img.url }}
+														{% else %}
+															{% static 'assets/img/avatars/default.jpg' %}
+														{% endif %}
+														" alt="{{club.name}}" class="rounded-circle" />
+													</li>
+												</ul>
+												
+											</td>
+											<td><strong>{{club.name}}</strong></td>
+											<td>
+												<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li
+														data-bs-toggle="tooltip"
+														data-popup="tooltip-custom"
+														data-bs-placement="top"
+														class="avatar avatar-s pull-up"
+														title="{{club.leader.first_name|title}} {{club.leader.last_name|title}}"
+													>
+														<img src="
+														{% if club.leader.photo %}
+															{{club.leader.photo.url}}
+														{% else %}
+															{% static 'assets/img/avatars/default.jpg' %}
+														{% endif %}
+														" alt="Avatar" class="rounded-circle" />
+													</li>
+												</ul>
+											</td>
+											<td>{{ club.users.all.count }}</td>
+											
+											<td>
+												<div class="dropdown">
+													<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+														  <i class="bx bx-dots-vertical-rounded"></i>
+													</button>
+													<div class="dropdown-menu ps">
+														{% if user in club.users.all %}
+															{% if user != club.leader %}
+																<a class="dropdown-item" href="{{club.get_absolute_url}}/leave">
+																	<i class="bx bx-trash me-1"></i> Leave
+																</a>
+															{% else %}
+																<a class="dropdown-item" href="{{club.get_absolute_url}}/edit">
+																	<i class="bx bx-edit-alt me-1"></i> Edit
+																</a>
+															{% endif %}
+														{% else %}
+															<a href="{{club.get_absolute_url}}/join" type="button" title="join" class="btn btn-icon btn-outline-primary">
+																<span class="tf-icons bx bx-task"></span>
+															</a>
+														{% endif %}
+														<a class="dropdown-item" href="{{club.get_absolute_url}}">
+															<i class="bx bx-detail me-1"></i> View Details
+														</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+								<tfoot class="table-border-bottom-0">
+									<tr>
+										<th>Logo</th>
+										<th>Name</th>
+										<th>Lider</th>
+										<th>Users</th>
+										<th>Action</th>
+									</tr>
+								</tfoot>
+						  </table>
+						</div>
+					</div>
 					
-					<tr>
-						<td><strong>GDC</strong></td>
-						<td>technology</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Berna Şener"
-								>
-									<img src="{% static 'assets/img/avatars/6.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>436</td>
-						<td>
-							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-task"></span>
-							</a>
-							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-detail"></span>
-							</a>
-						</td>
-					</tr>
-					
-					<tr>
-						<td><strong>UU Riders</strong></td>
-						<td>entertainment</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li
-									data-bs-toggle="tooltip"
-									data-popup="tooltip-custom"
-									data-bs-placement="top"
-									class="avatar avatar-xs pull-up"
-									title="Menekse Yamac"
-								>
-									<img src="{% static 'assets/img/avatars/5.png' %}" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>210</td>
-						<td>
-							<a href="#" type="button" title="join" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-task"></span>
-							</a>
-							<a href="#" type="button" title="detail" class="btn btn-icon btn-outline-primary">
-								<span class="tf-icons bx bx-detail"></span>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-		  </table>
+					<div class="card mt-4">
+						<h5 class="card-header">Available Other Clubs</h5>
+						
+						<div class="table-responsive text-nowrap">
+							<table class="table table-hover">
+								<thead class="table-light">
+									<tr>
+										<th>Logo</th>
+										<th>Name</th>
+										<th>Lider</th>
+										<th>Users</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody class="table-border-bottom-0">
+									{% if other_clubs.count < 1 %}
+										<tr>
+											<td>
+												<p class='card-text'>You joined to all clubs! 😅</p>
+											</td>
+										</tr>
+									{% endif %}
+									{% for club in other_clubs %}
+										<tr>
+											<td>
+												<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li
+														data-bs-toggle="tooltip"
+														data-popup="tooltip-custom"
+														data-bs-placement="top"
+														class="avatar avatar-s pull-up"
+														title="{{club.name}}"
+													>
+														<img src="
+														{% if club.img %}
+															{{club.img.url }}
+														{% else %}
+															{% static 'assets/img/avatars/default.jpg' %}
+														{% endif %}
+														" alt="{{club.name}}" class="rounded-circle" />
+													</li>
+												</ul>
+												
+											</td>
+											<td><strong>{{club.name}}</strong></td>
+											<td>
+												<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+													<li
+														data-bs-toggle="tooltip"
+														data-popup="tooltip-custom"
+														data-bs-placement="top"
+														class="avatar avatar-s pull-up"
+														title="{{club.leader.first_name|title}} {{club.leader.last_name|title}}"
+													>
+														<img src="
+														{% if club.leader.photo %}
+															{{club.leader.photo.url}}
+														{% else %}
+															{% static 'assets/img/avatars/default.jpg' %}
+														{% endif %}
+														" alt="Avatar" class="rounded-circle" />
+													</li>
+												</ul>
+											</td>
+											<td>{{ club.users.all.count }}</td>
+											<td>
+												{% if user in club.users.all %}
+												    {% if user != club.leader %}
+														<a href="{{club.get_absolute_url}}/leave" type="button" title="leave" class="btn btn-icon btn-outline-danger">
+															<span class="tf-icons bx bx-exit"></span>
+														</a>
+													{% endif %}
+												{% else %}
+													<a href="{{club.get_absolute_url}}/join" type="button" title="join" class="btn btn-icon btn-outline-primary">
+														<span class="tf-icons bx bx-task"></span>
+													</a>
+												{% endif %}
+												<a href="{{club.get_absolute_url}}" type="button" title="detail" class="btn btn-icon btn-outline-primary">
+													<span class="tf-icons bx bx-detail"></span>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+								<tfoot class="table-border-bottom-0">
+									<tr>
+										<th>Logo</th>
+										<th>Name</th>
+										<th>Lider</th>
+										<th>Users</th>
+										<th>Action</th>
+									</tr>
+								</tfoot>
+						  </table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		{% include 'components/footer.html' %}
+		<div class="content-backdrop fade"></div>
 	</div>
-</div
+</div>
 {% endblock content %}

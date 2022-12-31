@@ -110,7 +110,24 @@ class Maintenance(View):
 
 class MyClubs(View):
 	def get(self, request):
-		return render(request, 'management/clubs.html')
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			my_clubs = user.clubs.order_by('-name')
+			clubs = Club.objects.exclude(users=user)
+			is_leader = Club.objects.filter(leader=user).exists()
+			club = None
+			if (is_leader):
+				club = Club.objects.get(leader=user)
+			context = {
+                'user': user,
+				'my_clubs': my_clubs,
+				'other_clubs': clubs,
+				'club': club,
+            }
+		
+		return render(request, 'management/clubs.html', context)
 
 class Events(View):
 	def get(self, request):
@@ -225,7 +242,7 @@ class ClubLeaveView(View):
 					user.role = None
 					user.save()
 				club.save()
-			return redirect(reverse('club-page', args=[slug]))
+			return redirect(reverse('clubs-page'))
 		return redirect(reverse('signin-page'))
 	
 class CreateEventView(View):
@@ -286,6 +303,8 @@ class DeleteEventView(View):
 	
 	def get(self, request, slug):
 		return render(request, '405.html', status=405)
+
+
 
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)
