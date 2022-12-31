@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}{{club.name}}{% endblock page_title %}
+
+{% block content %}
+{% include 'components/menu.html' with user=user clubs=clubs create_event_active="active"%}
+
+<div class="layout-page">
+	{% include 'components/navbar.html' with user=user %}
+	
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="card mb-4">
+						<form method="POST" enctype="multipart/form-data" action="{% url 'event-create-page' slug=club.slug %}">	
+							{% csrf_token %}
+							<h5 class="card-header">Event Details</h5>
+							
+							<div class="card-body">
+									<div class="row">
+										
+										<div class="mb-3 col-md-6">
+											<label for="title" class="form-label">Event Title</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class='bx bx-heading' ></i></span>
+												<input class="form-control" type="text" id="title" name="title" autofocus required/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="title" class="form-label">Place</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class='bx bx-current-location'></i></span>
+												<input class="form-control" type="text" id="place" name="place" autofocus required/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="short_descr" class="form-label">Short Description</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class='bx bx-text'></i></span>
+												<textarea class="form-control" type="text" name="short_descr" id="short_descr" autofocus required></textarea>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="long_descr" class="form-label">Long Description</label>
+											<div class="input-group input-group-merge">
+												<span class="input-group-text"><i class='bx bx-text'></i></span>
+												<textarea class="form-control" type="text" name="long_descr" id="long_descr" autofocus required></textarea>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="title" class="form-label">Date and Time</label>
+											<div class="input-group input-group-merge">												
+												<input class="form-control" type="datetime-local" id="datetime"  name="date" autofocus required/>
+											</div>
+										</div>
+										
+										<div class="mb-3 col-md-6">
+											<label for="img" class="form-label">Image</label>
+											<div class="input-group input-group-merge">
+												
+												<input class="form-control" type="file" id="img" autofocus required accept="image/png, image/jpeg" name='img' />
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="mt-2">
+										<button type="submit" class="btn btn-primary me-2">Submit</button>
+									</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% include 'components/footer.html' %}
+		<div class="content-backdrop fade"></div>
+	</div>
+</div>
+{% endblock content %}

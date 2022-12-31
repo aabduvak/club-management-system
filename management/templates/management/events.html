@@ -12,11 +12,11 @@
 		<div class="container-xxl flex-grow-1 container-p-y">
 			<div class="row">
 				<div class="col-12">
-					<h4 class="fw-bold py-3 mb-3"><span class="text-muted fw-light">List of</span> Events</h4>
+					<h4 class="fw-bold py-3 mb-3">Events<span class="text-muted fw-light"> you have joined</span></h4>
 					<div class="row">
 						{% for event in events%}
 							<div class="col-md-6 col-lg-4 mb-3">
-								<div class="card h-100">
+								<div class="card h-60">
 									<img class="card-img-top" src="{{ event.img.url }}" alt="{{ event.title }}">
 									<div class="card-body">
 										<h5 class="card-title">{{ event.title }}</h5>

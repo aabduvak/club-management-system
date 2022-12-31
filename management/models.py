@@ -31,6 +31,18 @@ class Club(models.Model):
 	description = models.TextField()
 	img = models.ImageField(upload_to='clubs')
 	leader = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='leader', blank=True, null=True)
+	users = models.ManyToManyField(User, related_name='clubs', blank=True)
+	slug = models.SlugField(unique=True, blank=True, default='', null=False)
+	
+	def get_absolute_url(self):
+		return reverse('club-page', args=[self.slug])
+	
+	def save(self, *args, **kwargs):
+		if not self.slug:
+            # Generate a slug from the title if the slug is not set
+			self.slug = slugify(self.name)
+			super().save(*args, **kwargs)
+	
 	def __str__(self):
 		return f'{self.name}'
 
@@ -42,7 +54,7 @@ class Event(models.Model):
 	date = models.DateTimeField(auto_now_add= True,verbose_name="Date")
 	club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubs', null=True)
 	place = models.CharField(max_length=200, default='')
-	users = models.ManyToManyField(User, related_name='events')
+	users = models.ManyToManyField(User, related_name='events', blank=True)
 	slug = models.SlugField(unique=True, blank=True, default='', null=False)
 	
 	def get_absolute_url(self):

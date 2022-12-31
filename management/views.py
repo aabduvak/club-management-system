@@ -1,6 +1,9 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
+from django.utils.text import slugify
+
 
 from .models import User, Role, Event, Club
 
@@ -12,10 +15,14 @@ class Index(View):
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
 			events = Event.objects.order_by('-id')[:9]
+			clubs = Club.objects.order_by('name')
+			
 			context = {
 				'user': user,
-				'events': events
+				'events': events,
+				'clubs': clubs
 			}
+			
 			return render(request, 'management/index.html', context)
 		return redirect(reverse('signin-page'))
 		
@@ -96,7 +103,7 @@ class Maintenance(View):
 
 class MyClubs(View):
 	def get(self, request):
-		return render(request, 'management/my_clubs.html')
+		return render(request, 'management/clubs.html')
 
 class Events(View):
 	def get(self, request):
@@ -146,11 +153,99 @@ class EventDetail(View):
 			return render(request,'management/event.html', context)
 		return redirect(reverse('signin-page'))
 			
-
 class Logout(View):
     def get(self, request):
         request.session.clear()
         return redirect(reverse('signin-page'))
+
+class ClubDetail(View):
+	def get(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			
+			context = {
+				'club': club,
+				'user': user,
+			}
+			return render(request, 'management/club.html', context)
+		return redirect(reverse('signin-page'))
+
+class ClubJoinView(View):
+	def get(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			
+			if user not in club.users.all():
+				club.users.add(user)
+				club.save()
+			return redirect(reverse('index-page'))
+		return redirect(reverse('signin-page'))
+
+class ClubLeaveView(View):
+	def get(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			
+			if user in club.users.all():
+				club.users.remove(user)
+				club.save()
+			return redirect(reverse('index-page'))
+		return redirect(reverse('signin-page'))
+
+class CreateEventView(View):
+	def get(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			context = {
+				'club': club,
+				'user': user,
+			}
+			if user == club.leader:
+				context['datetime'] = datetime.now()
+				return render(request, 'management/create_event.html', context)
+			else:
+				return redirect(reverse('index-page'))
+		return redirect(reverse('signin-page'))
+	
+	def post(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			club = Club.objects.get(slug=slug)
+			
+			if user == club.leader:
+				title = request.POST.get('title')
+				place = request.POST.get('place')
+				date = request.POST.get('date')
+				short = request.POST.get('short_descr')
+				long = request.POST.get('long_descr')
+				slug = slugify(title)
+				
+				if 'img' in request.FILES:
+					img = request.FILES['img']
+				
+				
+				event = Event.objects.create(title=title, place=place, date=date, short_desc=short, long_desc=long, img=img, club=club)
+				event.save()
+				
+				return redirect(reverse('events-page'))
+			else:
+				return redirect(reverse('index-page'))
+		return redirect(reverse('signin-page'))
+	
 
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)

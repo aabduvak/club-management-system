@@ -9,8 +9,12 @@ urlpatterns = [
     path('reset/', views.ForgotPassword.as_view(), name='reset-page'),
     path('profile/', views.Account.as_view(), name='profile-page'),
     path('settings/', views.Maintenance.as_view(), name='settings-page'),
-    path('myclubs/', views.MyClubs.as_view(), name='myclubs-page'),
+    path('clubs/', views.MyClubs.as_view(), name='clubs-page'),
     path('events/', views.Events.as_view(), name='events-page'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('events/<slug:slug>', views.EventDetail.as_view(), name='event-page'),
+    path('clubs/<slug:slug>', views.ClubDetail.as_view(), name='club-page'),
+    path('clubs/<slug:slug>/join', views.ClubJoinView.as_view(), name='club-join-page'),
+    path('clubs/<slug:slug>/leave', views.ClubLeaveView.as_view(), name='club-leave-page'),
+    path('clubs/<slug:slug>/create', views.CreateEventView.as_view(), name='event-create-page'),
 ]
