@@ -93,7 +93,7 @@
 											<td>{{ club.users.all.count }}</td>
 											<td>
 												{% if user in club.users.all %}
-													<a href="{{club.get_absolute_url}}/leave" type="button" title="leave" class="btn btn-icon btn-outline-primary">
+													<a href="{{club.get_absolute_url}}/leave" type="button" title="leave" class="btn btn-icon btn-outline-danger">
 														<span class="tf-icons bx bx-exit"></span>
 													</a>
 												{% else %}

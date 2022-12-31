@@ -19,6 +19,28 @@
 					</div>
 				</div>
 				
+				<div class="col-md-6 col-lg-8 col-xl-8 mb-4">
+					<div class="card">
+						<div class="card-body">
+							<p class="card-text">
+								{{club.description|linebreaks}}	
+							</p>
+
+							<p class="card-text fw-bold">
+								{% if user in club.users.all %}
+									{% include 'components/modal.html' with request_url=club.get_absolute_url|add:"/leave" method="GET" text="Confirm that you want to leave this club." %}
+									<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#delete">
+										Leave
+									</button>
+								{% else %}
+									<a href="{{club.get_absolute_url}}/join" type="button" title="join" class="btn btn-primary">
+										Join
+									</a>
+								{% endif %}
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	

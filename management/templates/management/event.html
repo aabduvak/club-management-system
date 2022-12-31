@@ -31,6 +31,7 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="col-md-6 col-lg-8 col-xl-8 mb-4">
 					<div class="card">
 						<div class="card-body">
@@ -50,7 +51,7 @@
 								{% endif %}
 									
 								{% if leader %}
-									{% include 'components/modal.html' with request_url=event.get_absolute_url %}
+									{% include 'components/modal.html' with request_url=event.get_absolute_url|add:"/delete" method="POST" text="Confirm that you want to delete this record." %}
 									<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#delete">
 										Delete
 									</button>

@@ -74,6 +74,7 @@ class Account(View):
 		if (studentID is not None):
 			user = User.objects.get(studentID=studentID)
 			is_leader = Club.objects.filter(leader=user).exists()
+			club = None
 			if (is_leader):
 				club = Club.objects.get(leader=user)
 			
@@ -187,7 +188,7 @@ class ClubJoinView(View):
 			if user not in club.users.all():
 				club.users.add(user)
 				club.save()
-			return redirect(reverse('index-page'))
+			return redirect(reverse('club-page', args=[slug]))
 		return redirect(reverse('signin-page'))
 
 class ClubLeaveView(View):
@@ -200,10 +201,14 @@ class ClubLeaveView(View):
 			
 			if user in club.users.all():
 				club.users.remove(user)
+				if user == club.leader:
+					Club.objects.filter(slug=slug).update(leader=None)
+					user.role = None
+					user.save()
 				club.save()
-			return redirect(reverse('index-page'))
+			return redirect(reverse('club-page', args=[slug]))
 		return redirect(reverse('signin-page'))
-
+	
 class CreateEventView(View):
 	def get(self, request, slug):
 		studentID = request.session.get('id')
