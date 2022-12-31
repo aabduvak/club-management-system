@@ -17,4 +17,5 @@ urlpatterns = [
     path('clubs/<slug:slug>/join', views.ClubJoinView.as_view(), name='club-join-page'),
     path('clubs/<slug:slug>/leave', views.ClubLeaveView.as_view(), name='club-leave-page'),
     path('clubs/<slug:slug>/create', views.CreateEventView.as_view(), name='event-create-page'),
+    path('events/<slug:slug>/delete', views.DeleteEventView.as_view(), name='event-delete-page'),
 ]

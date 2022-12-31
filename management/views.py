@@ -127,12 +127,15 @@ class EventDetail(View):
 		if (studentID is not None):
 			event = Event.objects.get(slug=slug)
 			user = User.objects.get(studentID=studentID)
-			
 			joined = event.users.filter(studentID=studentID)
+			leader = False
+			if event.club.leader == user:
+				leader = True
 			context = {
 				'event': event,
 				'user': user,
-				'joined': joined
+				'joined': joined,
+				'leader': leader
 			}
 			return render(request, 'management/event.html', context)
 		return redirect(reverse('signin-page'))
@@ -213,7 +216,6 @@ class CreateEventView(View):
 				'user': user,
 			}
 			if user == club.leader:
-				context['datetime'] = datetime.now()
 				return render(request, 'management/create_event.html', context)
 			else:
 				return redirect(reverse('index-page'))
@@ -233,10 +235,8 @@ class CreateEventView(View):
 				short = request.POST.get('short_descr')
 				long = request.POST.get('long_descr')
 				slug = slugify(title)
-				
 				if 'img' in request.FILES:
 					img = request.FILES['img']
-				
 				
 				event = Event.objects.create(title=title, place=place, date=date, short_desc=short, long_desc=long, img=img, club=club)
 				event.save()
@@ -246,6 +246,21 @@ class CreateEventView(View):
 				return redirect(reverse('index-page'))
 		return redirect(reverse('signin-page'))
 	
+class DeleteEventView(View):
+	def post(self, request, slug):
+		studentID = request.session.get('id')
+		
+		if (studentID is not None):
+			user = User.objects.get(studentID=studentID)
+			event = Event.objects.get(slug=slug)
+			
+			if event and user == event.club.leader:
+				event.delete()
+			return redirect(reverse('index-page'))
+		return redirect(reverse('signin-page'))
+	
+	def get(self, request, slug):
+		return render(request, '405.html', status=405)
 
 def page_not_found(request, exception):
     return render(request, '404.html', status=404)

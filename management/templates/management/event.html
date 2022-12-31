@@ -37,19 +37,25 @@
 							<p class="card-text">
 								{{event.long_desc|linebreaks}}	
 							</p>
-							
-							{% if joined %}
-								<p class="card-text fw-bold">
-									You are registered successfully!
-								</p>
-							{% else %}
-								<form action="{{event.get_absolute_url}}" method='POST'>
-									{% csrf_token %}
+
+							<p class="card-text fw-bold">
+								{% if joined %}
+									<span class='fw-bold'>You are registered successfully!</span>
+								{% else %}
+									<form action="{{event.get_absolute_url}}" method='POST'>
+										{% csrf_token %}
+										
+										<button type="submit" class="btn btn-primary">Join</button>
+									</form>
+								{% endif %}
 									
-									<button type="submit" class="btn btn-primary">join</button>
-								</form>
-							{% endif %}
-							
+								{% if leader %}
+									{% include 'components/modal.html' with request_url=event.get_absolute_url %}
+									<button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#delete">
+										Delete
+									</button>
+								{% endif %}
+							</p>
 						</div>
 					</div>
 				</div>
